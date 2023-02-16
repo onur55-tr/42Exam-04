@@ -49,18 +49,6 @@ int main(int ac, char **av, char **env)
 
 	while (av[index] && av[++index])
 	{
-		av = av + index;
-		index = 0;
-		while (av[index] && strcmp(av[index], "|") && strcmp(av[index], ";"))
-			index++;
-		if (!strcmp(*av, "cd"))
-			res = echo_error(av, index);
-		else if (index)
-			res = execute(av, env, index);
-	}
-
-	return ((dup2(0, tmp) == -1 && print("error: fatal\n")) | res);
-}
 		av += index;
 		index = 0;
 		while (av[index] && strcmp(av[index], "|") && strcmp(av[index], ";"))
@@ -70,5 +58,6 @@ int main(int ac, char **av, char **env)
 		else if (index)
 			res = execute(av, env, index);
 	}
+
 	return ((dup2(0, tmp) == -1 && print("error: fatal\n")) | res);
 }
